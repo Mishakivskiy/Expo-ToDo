@@ -61,6 +61,14 @@ const Screence = () => {
     setCompletedTodos([...completedTodos, completedTodo]);
   };
 
+  const handleClearAll = () => {
+    setTodos([]);
+  };
+
+  const handleClearCompletedAll = () => {
+    setCompletedTodos([]);
+  };
+
   const TodoItem = ({ todo, index }) => (
     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#3d455a', margin: .5, fontSize: 25, color: '#fff', padding: 5}}>
       {todo.isEditing ? (
@@ -115,26 +123,27 @@ const Screence = () => {
           ),
         }}
         component={() => (
-            <View style={{ flex: 1, backgroundColor: '#282c37'}}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' , backgroundColor: '#3d455a', textAlign: 'center', color:'#d8cf22',
+          <View style={{ flex: 1, backgroundColor: '#282c37'}}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' , backgroundColor: '#3d455a', textAlign: 'center', color:'#d8cf22',
               padding: 10}}>My ToDo List!</Text>
-              <TextInput 
-                placeholder="Type a todo, then hit enter!"
-                value={todoText}
-                onChangeText={(text) => setTodoText(text)}
-                onSubmitEditing={handleAddTodo}
-                style={{color:'#fff', fontSize: 18, padding: 10, margin: 8, backgroundColor:'#5e7ab1'}}
-                placeholderTextColor={'#fff'}
-              />
-              <Button title="Add" onPress={handleAddTodo}/>
-              <FlatList
-                data={todos}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                  <TodoItem todo={item} index={index} />
-                )}
-              />
-            </View>
+            <Button title="Clear All" onPress={handleClearAll} />
+            <TextInput 
+              placeholder="Type a todo, then hit enter!"
+              value={todoText}
+              onChangeText={(text) => setTodoText(text)}
+              onSubmitEditing={handleAddTodo}
+              style={{color:'#fff', fontSize: 18, padding: 10, margin: 8, backgroundColor:'#5e7ab1'}}
+              placeholderTextColor={'#fff'}
+            />
+            <Button title="Add" onPress={handleAddTodo}/>
+            <FlatList
+              data={todos}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => (
+                <TodoItem todo={item} index={index} />
+              )}
+            />
+          </View>
         )}
       />
       <Tab.Screen
@@ -150,6 +159,7 @@ const Screence = () => {
                 padding: 10}}>
                 Completed Todos!
               </Text>
+              <Button title="Clear All" onPress={handleClearCompletedAll} />
               <FlatList 
                 data={completedTodos} 
                 keyExtractor={(item, index) => index.toString()}
